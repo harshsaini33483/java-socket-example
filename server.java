@@ -6,6 +6,8 @@ class Server{
 	public static ServerSocket ss;
 	public static Socket s;
 	public static Check check;
+	public static HashMap<String,ArrayList<String>> friends;
+	public static HashMap<String,String> nameandpass;
     public static void main(String args[])throws Exception
 	{
 		try{ss=new ServerSocket(9090);}
@@ -35,25 +37,46 @@ class Check{
 	public static BufferedReader br;
 	public Socket s;
 	public static Server serve;
+
+
+
 	public Check(Socket s){
 		this.s=s;
 		try{
-			pw=new PrintStream(s.getOutputStream());
-		    br=new BufferedReader(new InputStreamReader(s.getInputStream()));
+			serve=new Server();
+			pw=new PrintStream(s.getOutputStream());//Output Stream
+		    br=new BufferedReader(new InputStreamReader(s.getInputStream()));//Input Stream
            }
 		catch(Exception e){System.out.println("PrintStream is Not Working");}
 	}
 
+
+
+//Validation of User and Check if user already exist or not 
 	public void valid()throws Exception
 	{ 
 		String login=br.readLine();
-		String name;
-		if(login.equalsIgnoreCase("register"))
+		
+		if(login.equalsIgnoreCase("register"))//if Client select register
 		{
-			System.out.println("New User");
+		   String name=br.readLine();
+		   if(serve.nameandpass.containsKey(name))
+		   {
+		   	//Push Notifaication
+		   	System.out.println("Already Exist Try Another One");
+		   }	
+		   else
+		   {
+		   	//Successfuull Added
+		   	String pass=br.readLine();
+		   	serve.nameandpass.put(name,pass);
+		   }
 		}
-		else
+
+		
+		else//if client select old user
 		{
+			//Old User Chat Page
 			System.out.println("Old User");
 		}
 
