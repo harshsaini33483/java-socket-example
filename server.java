@@ -10,6 +10,11 @@ class Server{
 	public static HashMap<String,String> nameandpass;
     public static void main(String args[])throws Exception
 	{
+         
+         //intitalize HashMap
+            friends=new HashMap<String,ArrayList<String>>();
+            nameandpass=new HashMap<String,String>();
+
 		try{ss=new ServerSocket(9090);}
 		catch(Exception e){System.out.println("Port Already Used");}
 		while(true)
@@ -59,21 +64,28 @@ class Check{
 		
 		if(login.equalsIgnoreCase("register"))//if Client select register
 		{
-		   String name=br.readLine();
+			String name=br.readLine();
+            /*
+            notifiaction push to client
+            System.out.println("name");
+			*/
 		   if(serve.nameandpass.containsKey(name))
 		   {
-		   	//Push Notifaication
+		   	//Push Notification
 		   	System.out.println("Already Exist Try Another One");
 		   }	
 		   else
 		   {
-		   	//Successfuull Added
+		   	//Successfull Added
 		   	String pass=br.readLine();
 		   	serve.nameandpass.put(name,pass);
+		   	/* Push Notification 
+		   	System.out.println("Succesfull Register");
+		   	*/
 		   }
 		}
 
-		
+
 		else//if client select old user
 		{
 			//Old User Chat Page
