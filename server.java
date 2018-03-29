@@ -65,11 +65,8 @@ class Check{
 		if(login.equalsIgnoreCase("register"))//if Client select register
 		{
 			String name=br.readLine();
-            /*
-            notifiaction push to client
-            System.out.println("name");
-			*/
-		   if(serve.nameandpass.containsKey(name))
+            
+           if(serve.nameandpass.containsKey(name))
 		   {
 		   	//Push Notification
 		   	System.out.println("Already Exist Try Another One");
@@ -79,17 +76,45 @@ class Check{
 		   	//Successfull Added
 		   	String pass=br.readLine();
 		   	serve.nameandpass.put(name,pass);
-		   	/* Push Notification 
+		   	
+		   // Push Notification 
 		   	System.out.println("Succesfull Register");
-		   	*/
 		   }
 		}
 
 
-		else//if client select old user
+		else if(login.equalsIgnoreCase("LogIn"))//if client select old user
 		{
+			boolean validuser=true;
+			boolean validpass=true;
 			//Old User Chat Page
-			System.out.println("Old User");
+			while(validuser)
+			{
+			    String name=br.readLine();
+			    String pass=br.readLine();
+
+				if(serve.nameandpass.containsKey(name))
+					{   
+						validuser=false;
+                        while(validpass){
+										if(serve.nameandpass.get(name).equals(pass))
+											{
+												validpass=false;
+												System.out.println("Welcome Again");
+
+												//Class Third Initate
+											}
+										else
+											{
+												System.out.println("Enter Password Again");
+											}
+						                 }
+			        }
+			     else
+			     {
+			     	System.out.println("Not a valid username or not found in database");
+			     }
+		   }
 		}
 
 	}
